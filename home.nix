@@ -10,12 +10,14 @@
 
   home.stateVersion = "21.05";
 
+  # Programs Configuration
   programs.neomutt = {
     enable = true;
     package = (import <nixos-stable> {}).neomutt;
     sidebar.enable = true;
     vimKeys = true;
   };
+
   programs.mpv = {
     enable = true;
     defaultProfiles = ["main"];
@@ -27,19 +29,15 @@
     };
     scripts = [];
   };
-  i18n.inputMethod = let
-    fcitx5-qt = pkgs.libsForQt5.fcitx5-qt;
-  in {
-    enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [fcitx5-lua fcitx5-gtk fcitx5-mozc fcitx5-configtool fcitx5-qt];
-  };
+
   programs.firefox = {
     enable = true;
     package = pkgs.firefox;
   };
-  manual.json.enable = true;
 
   programs.home-manager.enable = true;
+
+  # Wayland Window Manager Configuration
   wayland.windowManager.sway = {
     enable = true;
     package = pkgs.sway;
@@ -139,8 +137,9 @@
       export INPUT_METHOD=fcitx
       export MOZ_ENABLE_WAYLAND=1
     '';
-    #swaynag = { enable = true; };
   };
+
+  # Services Configuration
   services.swayidle = {
     enable = true;
     timeouts = [
@@ -151,6 +150,7 @@
       }
     ];
   };
+
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -166,9 +166,9 @@
       set _JAVA_AWT_WM_NONREPARENTING 1
       set QT_QPA_PLATFORMTHEME gnome
     '';
-    shellAbbrs = {
-    };
+    shellAbbrs = {};
   };
+
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-unwrapped;
@@ -194,9 +194,11 @@
         (github "tpope/vim-sleuth" "sleuth")
       ];
   };
+
   programs.mako = {
     enable = true;
   };
+
   programs.waybar = {
     enable = true;
     settings = [
@@ -245,11 +247,11 @@
           };
           format = "{}% ";
         };
-        #ipc = true;
       }
     ];
     style = builtins.readFile ./waybar.css;
   };
+
   programs.urxvt = {
     enable = true;
     keybindings = {
@@ -263,40 +265,33 @@
     scroll.bar.enable = false;
     fonts = ["xft:Noto Sans Mono:pixelsize=16"];
   };
+
+  # Xresources Configuration
   xresources.properties = {
-    # special colors
     "*.foreground" = "#ebdadd";
     "*.background" = "[75]#24101a";
     "*.cursorColor" = "#ebdadd";
-    # black
     "*.color0" = "#523b3f"; # "#3b4252";
     "*.color8" = "#6b4d52"; # "#4c566a";
-    # red
     "*.color1" = "#e66e6e";
     "*.color9" = "#e66e6e";
-    # green
     "*.color2" = "#8cbf73";
     "*.color10" = "#8cbf73";
-    # yellow
     "*.color3" = "#ebbe5f";
     "*.color11" = "#ebbe5f";
-    # blue
     "*.color4" = "#5968b3";
     "*.color12" = "#5968b3";
-    # magenta
     "*.color5" = "#a64999";
     "*.color13" = "#a64999";
-    # cyan
     "*.color6" = "#77c7c2";
     "*.color14" = "#77c7c2";
-    # white
     "*.color7" = "#f0e4e6";
     "*.color15" = "#f7f0f1";
     "*antialias" = true;
     "*autohint" = true;
-    # "*fading" = 0;
-    # "*fadeColor" = "#6b4d52";
   };
+
+  # Packages Configuration
   home.packages = with pkgs; [
     wl-clipboard
     qt5ct
@@ -319,19 +314,24 @@
     font-awesome
     qgnomeplatform
   ];
+
+  # GPG Configuration
   programs.gpg = {
     enable = true;
     homedir = "${config.xdg.dataHome}/gnupg";
     mutableKeys = true;
     mutableTrust = true;
   };
+
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
     maxCacheTtl = 72000;
     maxCacheTtlSsh = 72000;
   };
+
   services.kdeconnect.enable = true;
+
   systemd.user.services = {
     fcitx5-daemon = {
       Unit.After = "graphical-session-pre.target";
@@ -353,6 +353,7 @@
   };
 
   fonts.fontconfig.enable = true;
+
   gtk = {
     enable = true;
     font.name = "Noto Sans";

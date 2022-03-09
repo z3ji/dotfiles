@@ -1,12 +1,14 @@
-@define-color bg #24101a;
-@define-color blue #87e5cf;
-@define-color green #8cbf73;
-@define-color yellow #ebbe5f;
-@define-color red #e64040;
-@define-color pink #ffa8a8;
-@define-color fg @pink;
-@define-color half-fg rgba(255, 168, 168, .15);
-@define-color quarter-fg rgba(255, 168, 168, .13);
+:root {
+  --bg: #24101a;
+  --blue: #87e5cf;
+  --green: #8cbf73;
+  --yellow: #ebbe5f;
+  --red: #e64040;
+  --pink: #ffa8a8;
+  --fg: var(--pink);
+  --half-fg: rgba(255, 168, 168, .15);
+  --quarter-fg: rgba(255, 168, 168, .13);
+}
 
 * {
   border: none;
@@ -17,10 +19,9 @@
 }
 
 window#waybar {
-  background-color: @bg;
-  color: @fg;
-  transition-property: background-color;
-  transition-duration: .5s;
+  background-color: var(--bg);
+  color: var(--fg);
+  transition: background-color .5s;
 }
 
 window#waybar.hidden {
@@ -30,29 +31,29 @@ window#waybar.hidden {
 #workspaces button {
   padding: 0 11px;
   background: transparent;
-  color: @fg;
+  color: var(--fg);
   border-bottom: 3px solid transparent;
 }
 
-#workspaces button.hover {
-  background-color: @background;
+#workspaces button:hover {
+  background-color: var(--bg);
   box-shadow: inherit;
-  border-bottom: 3px solid @half-fg;
+  border-bottom: 3px solid var(--half-fg);
 }
 
 #workspaces button.focused {
-  background-color: @half-fg;
-  border-bottom: 3px solid @fg;
+  background-color: var(--half-fg);
+  border-bottom: 3px solid var(--fg);
 }
 
 #workspaces button.urgent {
-  background-color: @background;
-  border-bottom: 3px solid @red;
+  background-color: var(--bg);
+  border-bottom: 3px solid var(--red);
 }
 
 #mode {
   background-color: transparent;
-  border: 2px solid @fg;
+  border: 2px solid var(--fg);
   padding: 0 5px;
 }
 
@@ -64,7 +65,7 @@ window#waybar.hidden {
 #language {
   padding: 0 3px;
   margin: 3px 2px;
-  background-color: @quarter-fg;
+  background-color: var(--quarter-fg);
   border-radius: 5px;
 }
 
@@ -79,19 +80,19 @@ window#waybar.hidden {
 #clock,
 #language,
 #pulseaudio {
-  color: @blue;
+  color: var(--blue);
 }
 
 #battery.full {
-  color: @green;
+  color: var(--green);
 }
 
 .discharging,
 .warning {
-  color: @yellow;
+  color: var(--yellow);
 }
 
 .critical {
   color: #ffffff;
-  background: @red;
+  background: var(--red);
 }
